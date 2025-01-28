@@ -1,1 +1,459 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fallen Angels | PUBG Mobile Клан</title>
+    <style>
+        :root {
+            --primary: #6a1b9a;
+            --secondary: #9c4dcc;
+            --accent: #bf5af2;
+            --background: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/api/placeholder/1920/1080') center/cover;
+            opacity: 0.1;
+        }
+        
+        .header-content {
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .logo {
+            width: 250px;
+            height: auto;
+            margin: 0 auto 2rem;
+            filter: drop-shadow(0 0 20px var(--accent));
+        }
+        
+        .clan-name {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px var(--accent);
+        }
+        
+        .join-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            background: var(--accent);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 50px;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .join-button:hover {
+            background: transparent;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(191, 90, 242, 0.4);
+        }
+        
+        .nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: var(--accent);
+        }
+        
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--accent);
+        }
+        
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .requirement-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .requirement-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .members-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        @media (max-width: 1200px) {
+            .members-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .members-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .members-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .member-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            border: 3px solid var(--accent);
+            object-fit: cover;
+        }
+        
+        .member-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .member-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .member-role {
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-stats {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 20px;
+            margin-top: 4rem;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .contact-button {
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-button:hover {
+            background: var(--text);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <img src="/img/icon.jpg" alt="Fallen Angels Logo" class="logo">
+            <h1 class="clan-name">Fallen Angels</h1>
+            <p>Елітний клан PUBG Mobile</p>
+            <a href="#contact" class="join-button">Приєднатися до клану</a>
+        </div>
+    </header>
+    
+    
+    <nav class="nav">
+        <ul class="nav-links">
+            <li><a href="#requirements">Вимоги</a></li>
+            <li><a href="#members">Учасники</a></li>
+            <li><a href="#contact">Контакти</a></li>
+        </ul>
+    </nav>
+    
+    <section id="requirements" class="section">
+        <h2 class="section-title">Вимоги до кандидатів</h2>
+        <div class="requirements-grid">
+            <div class="requirement-card">
+                <h3>Ігрові вимоги</h3>
+                <ul>
+                    <li>Мінімальний ранг: Алмаз V</li>
+                    <li>K/D: girls - 2+; boys - 3+</li>
+                    <li>Рівень: 40+</li>
+                </ul>
+            </div>
+            <div class="requirement-card">
+                <h3>Активність</h3>
+                <ul>
+                    <li>Мінімум 1-2 години на день</li>
+                    <li>Участь у клановій активності</li>
+                    <li>Участь у турнірах</li>
+                </ul>
+            </div>
+            <div class="requirement-card">
+                <h3>Технічні вимоги</h3>
+                <ul>
+                    <li>Наявність мікрофону</li>
+                    <li>Telegram</li>
+                    <li>Стабільний інтернет</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="members" class="section">
+        <h2 class="section-title">Учасники клану</h2>
+        <div class="members-container">
+            <div class="member-card">
+                <div class="member-role">Лідер клану</div>
+                <img src="/img/faan_volodka.jpg" alt="Лідер" class="member-image">
+                <h3>FaaN×VOLODKA</h3>
+                <div class="member-stats">
+                    <p>ID: 550918737</p>
+                    <p>K/D сезону: 12.16</p>
+                    <p>Всього зіграно матчів: 13700</p>
+                </div>
+            </div>
 
+            <div class="member-card">
+                <div class="member-role">Заступник</div>
+                <img src="/img/faan_vindi.jpg" alt="faan_vindi" class="member-image">
+                <h3>FaaN×VINDI</h3>
+                <div class="member-stats">
+                    <p>ID: 51235856635</p>
+                    <p>K/D сезону: 7.29</p>
+                    <p>Всього зіграно матчів: 6339</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Заступник</div>
+                <img src="/img/faan_itaci.jpg" alt="faan_itaci" class="member-image">
+                <h3>FaaN×么ITACHI</h3>
+                <div class="member-stats">
+                    <p>ID: 52112083588</p>
+                    <p>K/D сезону: 4.98</p>
+                    <p>Всього зіграно матчів: 1453</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Заступник</div>
+                <img src="/img/faan_jasper.jpg" alt="faan_jasper" class="member-image">
+                <h3>FaaN×JASPER</h3>
+                <div class="member-stats">
+                    <p>ID: 52036636140</p>
+                    <p>K/D сезону: 7.13</p>
+                    <p>Всього зіграно матчів: 4006</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Еліта</div>
+                <img src="/img/faan_yuriivna.jpg" alt="faan_yuriivna" class="member-image">
+                <h3>FaaN×Yuriivna</h3>
+                <div class="member-stats">
+                    <p>ID: 5684042077</p>
+                    <p>K/D сезону: 2.63</p>
+                    <p>Всього зіграно матчів: 963</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Еліта</div>
+                <img src="/img/faan_maks.jpg" alt="faan_maks" class="member-image">
+                <h3>FaaN×MAKS</h3>
+                <div class="member-stats">
+                    <p>ID: 5512476276</p>
+                    <p>K/D сезону: 8.45</p>
+                    <p>Всього зіграно матчів: 4509</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Еліта</div>
+                <img src="/img/faan_serebro.jpg" alt="faan_serebro" class="member-image">
+                <h3>FaaN×SerebroS</h3>
+                <div class="member-stats">
+                    <p>ID: 52051031366</p>
+                    <p>K/D сезону: 7.49</p>
+                    <p>Всього зіграно матчів: 411</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Еліта</div>
+                <img src="/img/faan_bomber.jpg" alt="faan_bomber" class="member-image">
+                <h3>FaaN×BOMBER</h3>
+                <div class="member-stats">
+                    <p>ID: 5656519850</p>
+                    <p>K/D сезону: 5.12</p>
+                    <p>Всього зіграно матчів: 15178</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Еліта</div>
+                <img src="/img/faan_joker.jpg" alt="faan_joker" class="member-image">
+                <h3>FaaN×JOKER</h3>
+                <div class="member-stats">
+                    <p>ID: 5762332618</p>
+                    <p>K/D сезону: 7.99</p>
+                    <p>Всього зіграно матчів: 15876</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Еліта</div>
+                <img src="/img/faan_venera.jpg" alt="faan_venera" class="member-image">
+                <h3>FaaN×VENERA</h3>
+                <div class="member-stats">
+                    <p>ID: 5723259405</p>
+                    <p>K/D сезону: 5.12</p>
+                    <p>Всього зіграно матчів: 5048</p>
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-role">Еліта</div>
+                <img src="/img/faan_vlados.jpg" alt="faan_vlados" class="member-image">
+                <h3>FaaN×VLADOS</h3>
+                <div class="member-stats">
+                    <p>ID: 51628113320</p>
+                    <p>K/D сезону: 7.75</p>
+                    <p>Всього зіграно матчів: 4040</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="section">
+        <div class="contact-section">
+            <h2 class="section-title">Приєднуйся до нас!</h2>
+            <p>Щоб вступити до клану, зв'яжіться з нами через:</p>
+            <div class="contact-buttons">
+                <a href="https://t.me/FaaNVOLODKA" class="contact-button">Telegram лідера</a>
+                <a href="https://t.me/+TUzI78ZJEcljMWFi" class="contact-button">Telegram канал</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.member-card, .requirement-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
